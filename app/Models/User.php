@@ -7,12 +7,35 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+use Illuminate\Database\Eloquent\Model;
+
+class User extends Model
 {
-    use Notifiable, HasFactory;
+    protected $table = 'users';
 
-    protected $guarded = []; 
+    protected $primaryKey = 'sno';
 
-    protected $hidden = ['password', 'remember_token'];
+    public $timestamps = false;
 
+    protected $fillable = [
+        'sno',
+        'branch',
+        'UserID',
+        'Username',
+        'name',
+        'from_date',
+        'to_date',
+        'display',
+        'date_of_entry',
+        'Emp_id',
+        'service',
+        'flag_avi',
+        'remark',
+        'remark2'
+    ];
+
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class, 'user_id', 'sno');
+    }
 }

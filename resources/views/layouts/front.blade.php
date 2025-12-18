@@ -44,7 +44,7 @@
                 <!-- RIGHT SIDE -->
                 <div class="d-flex align-items-center gap-2">
 
-                    @if(auth()->check())
+                    @if (auth()->check())
                         <!-- If Logged In: Show Dashboard + Logout -->
                         <a href="{{ route('dashboard') }}" class="btn btn-primary btn-sm px-3 fw-semibold">
                             <i class="fa-solid fa-gauge"></i> Dashboard
@@ -56,7 +56,6 @@
                                 <i class="fa-solid fa-power-off"></i> Logout
                             </button>
                         </form>
-
                     @else
                         <!-- If NOT logged in: Show Login Buttons -->
                         <a href="{{ route('login.user') }}" class="btn btn-outline-primary btn-sm px-3 fw-semibold">
@@ -80,8 +79,11 @@
 
     <!-- FOOTER -->
     <footer class="bg-white border-top py-3 mt-5">
-        <div class="container text-center text-muted small">
-            © {{ date('Y') }} MPHC Complaint Management System — All Rights Reserved
+        <div class="col-12 text-center text-muted">
+            <script>
+                document.write(new Date().getFullYear())
+            </script>
+            © MP High Court - Complaint Management System
         </div>
     </footer>
 
@@ -90,4 +92,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

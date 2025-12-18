@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
+    <!-- CSRF Complaint -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Dashboard | Complaint Management System</title>
+    <title>Dashboard | Complaint System</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -40,17 +40,19 @@
                 <!-- Brand Logo -->
                 <a href="{{ url('/admin/dashboard') }}" class="logo">
                     <span class="logo-light">
-                        <span class="logo-lg w-50"><img src="{{ asset('assets/images/logo.jpg') }}" alt="logo"
-                                ></span>
-                        <span class="logo-sm text-center  w-50"><img src="{{ asset('assets/images/logo.jpg') }}"
-                                alt="small logo" ></span>
+                        <span class="logo-lg"><img src="{{ asset('assets/images/favicon.jpg') }}"
+                                alt="logo"> </span>
+                                {{-- <span>Complaint Management</span> --}}
+                        <span class="logo-sm text-center  w-75"><img src="{{ asset('assets/images/favicon.jpg') }}"
+                                alt="small logo"></span>
                     </span>
 
                     <span class="logo-dark">
-                        <span class="logo-lg  w-50"><img src="{{ asset('assets/images/logo.jpg') }}" alt="dark logo"
-                                ></span>
-                        <span class="logo-sm text-center  w-50"><img src="{{ asset('assets/images/logo.jpg') }}"
-                                alt="small logo" ></span>
+                        <span class="logo-lg"><img src="{{ asset('assets/images/favicon.jpg') }}"
+                                alt="dark logo"></span>
+                                {{-- <span>Complaint Management</span> --}}
+                        <span class="logo-sm text-center  w-75"><img src="{{ asset('assets/images/favicon.jpg') }}"
+                                alt="small logo"></span>
                     </span>
                 </a>
 
@@ -79,61 +81,50 @@
 
                         <hr>
 
-                        <!-- User Management -->
+                        <!-- User -->
                         <li class="side-nav-item">
                             <a href="{{ url('/admin/users') }}"
                                 class="side-nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
                                 <span class="menu-icon"><i class="ti ti-users"></i></span>
-                                <span class="menu-text">User Management</span>
+                                <span class="menu-text">Users</span>
                             </a>
                         </li>
 
-                         <!-- Advocate Management -->
+                        <!-- Section -->
                         <li class="side-nav-item">
-                            <a href="{{ url('/admin/advocates') }}"
+                            <a href="{{ url('/admin/sections') }}"
                                 class="side-nav-link {{ request()->is('admin/advocates*') ? 'active' : '' }}">
                                 <span class="menu-icon"><i class="ti ti-users"></i></span>
-                                <span class="menu-text">Advocate Management</span>
+                                <span class="menu-text">Sections</span>
                             </a>
                         </li>
 
-                        <!-- Token Management -->
+                        <!-- Complaint -->
                         <li class="side-nav-item">
-                            <a href="{{ url('/admin/tokens') }}"
+                            <a href="{{ url('/admin/complaints') }}"
                                 class="side-nav-link {{ request()->is('admin/tokens*') ? 'active' : '' }}">
                                 <span class="menu-icon"><i class="ti ti-key"></i></span>
-                                <span class="menu-text">Token Management</span>
+                                <span class="menu-text">Complaints</span>
                             </a>
                         </li>
 
-                        <!-- Blocks Management -->
+                        <!-- Complaint Assignment -->
                         <li class="side-nav-item">
-                            <a href="{{ url('/admin/counters/',) }}"
-                                class="side-nav-link {{ request()->is('admin/counters*') ? 'active' : '' }}">
-                                <span class="menu-icon"><i class="ti ti-building"></i></span>
-                                <span class="menu-text">Counter Management</span>
-                            </a>
-                        </li>
-
-                        <!-- Display Board Settings -->
-                        <li class="side-nav-item">
-                            <a href="{{ url('admin/display-board') }}"
-                                class="side-nav-link {{ request()->is('admin/display-board*') ? 'active' : '' }}">
-                                <span class="menu-icon"><i class="ti ti-settings"></i></span>
-                                <span class="menu-text">Display Board</span>
-                            </a>
-                        </li>
-
-                        <!-- Token Assignment -->
-                        <li class="side-nav-item">
-                            <a href="{{ route('admin.token.assign.page') }}"
-                                class="side-nav-link {{ request()->is('admin.token.assign.page*') ? 'active' : '' }}">
-                                <span class="menu-icon"><i class="ti ti-asset"></i></span>
-                                <span class="menu-text">Token Assignment</span>
+                            <a href="{{ url('/admin/software') }}"
+                                class="side-nav-link {{ request()->is('admin/advocates*') ? 'active' : '' }}">
+                                <span class="menu-icon"><i class="ti ti-users"></i></span>
+                                <span class="menu-text">Software Team</span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{ route('admin.reports.completed') }}" class="side-nav-link">
+                            <a href="{{ url('/admin/hardware') }}"
+                                class="side-nav-link {{ request()->is('admin/advocates*') ? 'active' : '' }}">
+                                <span class="menu-icon"><i class="ti ti-users"></i></span>
+                                <span class="menu-text">Hardware Team</span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ url('/admin/reports') }}" class="side-nav-link">
                                 <span class="menu-icon"><i class="ti ti-asset"></i></span>
                                 <span class="menu-text">Reports</span>
                             </a>
@@ -150,15 +141,15 @@
                     <div class="d-flex align-items-center gap-2">
 
                         <!-- Brand Logo -->
-                        <a href="{{route('dashboard')}}" class="logo">
+                        <a href="{{ route('admin.dashboard') }}" class="logo">
                             <span class="logo-light">
-                                <span class="logo-lg"><img src="assets/images/logo.jpg" alt="logo"></span>
-                                <span class="logo-sm"><img src="assets/images/logo.jpg" alt="small logo"></span>
+                                <span class="logo-lg"><img src="assets/images/favicon.jpg" alt="logo"></span>
+                                <span class="logo-sm"><img src="assets/images/favicon.jpg" alt="small logo"></span>
                             </span>
 
                             <span class="logo-dark">
-                                <span class="logo-lg"><img src="assets/images/logo.jpg" alt="dark logo"></span>
-                                <span class="logo-sm"><img src="assets/images/logo.jpg" alt="small logo"></span>
+                                <span class="logo-lg"><img src="assets/images/favicon.jpg" alt="dark logo"></span>
+                                <span class="logo-sm"><img src="assets/images/favicon.jpg" alt="small logo"></span>
                             </span>
                         </a>
 
@@ -415,7 +406,7 @@
                                 <a class="topbar-link btn btn-outline-primary dropdown-toggle drop-arrow-none"
                                     data-bs-toggle="dropdown" data-bs-offset="0,22" type="button"
                                     aria-haspopup="false" aria-expanded="false">
-                                    <img src="{{ asset('assets/images/users/avatar-1.jpg')}}" width="24"
+                                    <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" width="24"
                                         class="rounded-circle me-lg-2 d-flex" alt="user-image">
                                     <span class="d-lg-flex flex-column gap-1 d-none">
                                         {{ ucfirst(auth()->user()?->name ?? 'User') }} </span>
@@ -487,21 +478,7 @@
             <main class="">
                 <div class="row">
                     <div class="col-md-9 mx-auto">
-                        @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                        @endif
-
-                        @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
-                            {{ session('error') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                        @endif
+                       
                     </div>
                 </div>
                 @yield('content')
@@ -512,10 +489,11 @@
         <footer class="footer">
             <div class="page-container">
                 <div class="row">
-                    <div class="col-md-6 text-center text-md-start">
+                    <div class="col-12 text-center text-muted">
                         <script>
                             document.write(new Date().getFullYear())
-                        </script> © Complaint Management
+                        </script>
+                        © MP High Court - Complaint System
                     </div>
                     <div class="col-md-6">
                         <div class="text-md-end footer-links d-none d-md-block">

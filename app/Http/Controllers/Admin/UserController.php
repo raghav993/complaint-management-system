@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
-    public function dashboard()
+    public function index()
     {
         $users = User::all();
-        return view('admin.dashboard', compact('users'));
+        return view('admin.user.index',compact('users'));
     }
 
     public function showProfile()

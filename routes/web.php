@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 // Controllers
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ComplaintController1;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 
 
@@ -22,7 +23,6 @@ Route::get('/admin/login',     [LoginController::class, 'showAdminLoginForm'])->
 
 Route::post('/login',      [LoginController::class, 'userLogin']);
 Route::post('/admin/login',     [LoginController::class, 'adminLogin']);
-
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
@@ -37,20 +37,9 @@ Route::get('/admin',     [RegisterController::class, 'showAdminRegisterForm'])->
 Route::post('/register',      [RegisterController::class, 'userRegister']);
 Route::post('/admin',     [RegisterController::class, 'adminRegister']);
 
-/*
-|--------------------------------------------------------------------------
-| ADMIN
-|--------------------------------------------------------------------------
-*/
-Route::prefix('admin')->name('admin.')
-    ->group(function () {
-        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-        Route::get('/profile', [AdminController::class, 'showProfile'])->name('profile');
-        Route::post('/profile', [AdminController::class, 'updateProfile'])->name('profile.update');
 
-    });
 
-    Route::prefix('user')->name('user.')
+Route::prefix('user')->name('user.')
     ->group(function () {
         Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
         Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
@@ -58,5 +47,12 @@ Route::prefix('admin')->name('admin.')
 
     });
 
+Route::get('/complaint/create', [ComplaintController1::class,'create'])->name('complaint.create');
+Route::post('/complaint', [ComplaintController1::class,'store'])->name('complaint.store');
+Route::get('/complaints', [ComplaintController1::class,'index'])->name('complaints');
+Route::get('/complaint/{id}', [ComplaintController1::class,'index'])->name('complaint.show');
+// Route::get('/complaints', [ComplaintController1::class,'index'])->name('complaints.ed');
 
-// Route::get('/insert-users', [UserController::class, 'insertUsersFromSql']);
+Route::post('/complaints/assign-ka', [ComplaintController1::class, 'assignKa']);
+
+include 'admin.php';

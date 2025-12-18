@@ -16242,7 +16242,7 @@ html[data-bs-theme=dark] #light-dark-mode .ti-moon::before {
     }
 
     .logo-topbar span.logo-lg {
-        display: none
+        display: inline
     }
 
     .logo-topbar span.logo-sm {
@@ -17058,7 +17058,7 @@ html[data-bs-theme=dark] .app-topbar .logo .logo-dark,html[data-topbar-color=bra
 }
 
 .logo-lg img {
-    height: var(--bs-logo-lg-height)
+    height: 70px;
 }
 
 .logo-sm img {

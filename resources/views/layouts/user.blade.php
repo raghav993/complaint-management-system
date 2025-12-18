@@ -80,9 +80,6 @@
 
         </div>
     </header>
-
-
-
     <!-- ============================
         MAIN PAGE CONTENT
     ============================= -->
@@ -114,19 +111,12 @@
 
     </main>
 
-
-
-    <!-- ============================
-        FOOTER
-    ============================= -->
     <footer class="footer">
         <div class="page-container">
             <div class="row">
                 <div class="col-12 text-center text-muted">
-
                     <script>document.write(new Date().getFullYear())</script>
-                    © Token Management System
-
+                    © MP High Court - Complaint Management System
                 </div>
             </div>
         </div>
