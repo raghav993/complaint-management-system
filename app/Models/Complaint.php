@@ -29,6 +29,8 @@ class Complaint extends Model
         'person_name',
         'priority',
         'status',
+        'complaint_date',
+        'completed_at',
     ];
 
     // users.sno → complaints.user_id

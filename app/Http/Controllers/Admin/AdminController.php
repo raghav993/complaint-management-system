@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Section;
 use App\Models\Engineer;
 use App\Models\Complaint;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -22,7 +23,27 @@ class AdminController extends Controller
         $totalEngineers = $engineers->count();
         $totalComplaints = $complaints->count();
         $totalSections = $sections->count();
-        return view('admin.dashboard', compact('users', 'engineers', 'complaints', 'sections', 'totalUsers', 'totalEngineers', 'totalComplaints', 'totalSections'));
+        $todayComplaints = Complaint::whereDate('complaint_date', Carbon::today())->get();
+        $totalTodayComplaints = $todayComplaints->count();
+
+        $resolvedComplaints = Complaint::where('status', 'completed')->get();
+        // dd($resolvedComplaints);
+        $totalResolvedComplaints = $resolvedComplaints->count();
+        $todayAssigned = Complaint::where('status', 'in_progress')->get();
+        $inProgressComplaints = $todayAssigned->count();
+        $pending = Complaint::where('status', 'open')->get();
+        $pendingComplaints = $pending->count();
+        $closed = Complaint::where('status', 'completed')->get();
+        $closedComplaints = $pending->count();
+
+        $todayResolved =Complaint::whereDate('completed_at', Carbon::today())->where('status', 'completed')->get();
+        $todayTotalResolved = $todayResolved->count();
+    //    $departmentStatus;
+        return view('admin.dashboard', compact('users', 'engineers', 'complaints', 'sections',
+         'totalUsers', 'totalEngineers', 'totalComplaints', 'totalSections', 
+         'totalTodayComplaints', 'totalResolvedComplaints', 'resolvedComplaints', 'todayComplaints',
+         'todayAssigned', 'inProgressComplaints', 'todayResolved', 'todayTotalResolved',
+          'pending', 'pendingComplaints', 'closed', 'closedComplaints'));
     }
 
     public function showProfile()

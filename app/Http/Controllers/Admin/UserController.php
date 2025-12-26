@@ -42,5 +42,9 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Profile updated.');
     }
 
+     public function create()
+        {
+            return view('admin.users.create');
+        }
    
 }

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Item;
+use App\Models\Engineer;
 use App\Models\Complaint;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\SendComplaintAsignMail;
+use Illuminate\Support\Facades\Mail;
 
 
 class ComplaintController extends Controller
@@ -36,24 +39,24 @@ class ComplaintController extends Controller
     }
     public function assign(Request $request)
     {
-        // $request->validate([
-        //     'complaint_id' => 'required',
-        //     'engineer_id'  => 'required'
-        // ]);
+        $request->validate([
+            'complaint_id' => 'required',
+            'engineer_id'  => 'required'
+        ]);
 
-        //  $complaint = Complaint::where('complaint_no', $request->complaint_id)
-        // ->firstOrFail();
-
-        // // Update complaint table
-        // $complaint->engineer_id = $request->engineer_id;
-        // $complaint->status = 'in_progress';
-        // $complaint->save();
-
-        // // Assignment history
-        // $complaint->assignments()->create([
-        //     'engineer_id' => $request->engineer_id,
-        //     'assigned_by' => auth()->id(),
-        // ]);
+        $complaint = Complaint::findOrFail($request->complaint_id);
+        $engineer = Engineer::findOrFail($request->engineer_id);
+        // Update complaint table
+        $complaint->engineer_id = $request->engineer_id;
+        $complaint->status = 'in_progress';
+        $complaint->save();
+        Mail::to($engineer->email)->send(new SendComplaintAsignMail(
+            $engineer->name,
+            $complaint->complaint_no,
+            $complaint->problem,
+            $complaint->person_name,
+            $complaint->section->name
+        ));
 
         return back()->with('success', 'Engineer Assigned Successfully');
     }

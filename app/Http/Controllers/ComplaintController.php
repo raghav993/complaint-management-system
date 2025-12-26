@@ -31,7 +31,7 @@ class ComplaintController extends Controller
         $complaint->product_number = $request->input('product_number');
         $complaint->person_in_charge = $request->input('person_in_charge');
         $complaint->save();
-        return redirect()->route('complaints.index');
+        return redirect()->back()->with('success', 'Complaint created successfully');
     }
 }
 

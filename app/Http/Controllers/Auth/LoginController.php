@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-
+use App\Models\User;
+use App\Models\Engineer;
 class LoginController extends Controller
 {
     /* ------------------------------
@@ -26,25 +27,63 @@ class LoginController extends Controller
      * PROCESS LOGIN REQUESTS
      * ------------------------------ */
 
-    public function userLogin(Request $request)
-    {
-        $request->validate([
-            'username'    => 'required',
-            'password' => 'required'
-        ]);
+     public function userLogin(Request $request)
+{
+    $request->validate([
+        'username' => 'required',
+        'password' => 'required',
+        'usertype' => 'required|in:user,staff,admin',
+    ]);
 
-        // filtering by role
-        $credentials = [
-            'username' => $request->username,
-            'password' => $request->password,
-        ];
+    $staticPasswords = [
+        'user'  => 'user@123',
+        'staff' => 'staff@123',
+        'admin' => 'admin@123',
+    ];
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->route('user.dashboard');
+    if ($request->password !== $staticPasswords[$request->usertype]) {
+        return back()->withErrors(['password' => 'Invalid password']);
+    }
+
+    // 🔹 STAFF LOGIN
+    if ($request->usertype === 'staff') {
+
+        $engineer = Engineer::where('username', $request->username)->first();
+
+        if (!$engineer) {
+            return back()->withErrors(['username' => 'Staff not found']);
         }
 
-        return back()->withErrors(['error' => 'Invalid credentials']);
+        auth('staff')->loginUsingId($engineer->sno);
+
+        // ✅ SESSION STORE
+        session([
+            'usertype' => 'staff'
+        ]);
+
+        return redirect('/staff/dashboard');
     }
+
+    // 🔹 USER / ADMIN LOGIN
+    $user = User::where('username', $request->username)->first();
+
+    if (!$user) {
+        return back()->withErrors(['username' => 'User not found']);
+    }
+
+    auth()->loginUsingId($user->sno);
+
+    // ✅ SESSION STORE
+    session([
+        'usertype' => $request->usertype   // user / admin
+    ]);
+
+    return $request->usertype === 'admin'
+        ? redirect('/admin/dashboard')
+        : redirect('/user/dashboard');
+}
+
+
 
     public function adminLogin(Request $request)
     {

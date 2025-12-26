@@ -7,10 +7,9 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>User Dashboard | Token Management System</title>
-
+        <title>User Dashboard | MPHC Indore Bench</title>
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.jpg') }}">
 
     <!-- Theme Config -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
@@ -25,6 +24,16 @@
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+    <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
 </head>
 
 <body>
@@ -69,7 +78,7 @@
                             <i class="ti ti-logout me-2"></i> Logout
                         </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        <form id="logout-form" action="{{ url('logout/web') }}" method="POST" class="d-none">
                             @csrf
                         </form>
 

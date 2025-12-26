@@ -12,15 +12,16 @@ class ComplaintController1 extends Controller
 {
     public function index()
     {
-        $complaints = Complaint::all();
+        $complaints = Complaint::where('user_id', auth()->user()->sno)->get();
         return view('users.complaints.index', compact('complaints'));
     }
 
     public function create()
     {
-        $items = Item::all();
-        $sections = Section::all();
-        return view('users.complaints.create', compact('items', 'sections'));
+        $items = Item::all(); 
+        $sections = Section::all(); 
+        return view('complaints.create', compact('items', 'sections'));
+        // return response()->json(['items' => $items, 'sections' => $sections]);
     }
 
     public function store(Request $request)
@@ -34,7 +35,8 @@ class ComplaintController1 extends Controller
         $complaint->person_name = $request->input('person_name');
         $complaint->problem = $request->input('problem');
         $complaint->save();
-        return redirect()->route('complaints');
+        // Complaint::create($request->all());
+         return redirect()->back()->with('success', 'Complaint created successfully');
     }
 
     public function assignKa(Request $request)

@@ -4,16 +4,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CMS For Software/Hardware</title>
+    <title>CMS For Software/Hardware | MPHC Indore Bench</title>
 
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.jpg') }}">
+
+    <!-- Theme Config -->
+    <script src="{{ asset('assets/js/config.js') }}"></script>
+
+    <!-- Vendor css -->
+    <link href="{{ asset('assets/css/vendor.min.css') }}" rel="stylesheet">
+
+    <!-- App css -->
+    <link href="{{ asset('assets/css/user-app.min.css') }}" rel="stylesheet" id="app-style">
+
+    <!-- Icons -->
+    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
 
 <body class="bg-light">
@@ -43,14 +50,31 @@
 
                 <!-- RIGHT SIDE -->
                 <div class="d-flex align-items-center gap-2">
-
+                    <a href="{{ url('create/complaint') }}" class="btn btn-outline-primary btn-sm px-3 fw-semibold">
+                        <i class="fa-solid fa-tool me-1"></i> Raise New Complaint
+                    </a>
                     @if (auth()->check())
                         <!-- If Logged In: Show Dashboard + Logout -->
-                        <a href="{{ route('dashboard') }}" class="btn btn-primary btn-sm px-3 fw-semibold">
-                            <i class="fa-solid fa-gauge"></i> Dashboard
-                        </a>
+                        @php
+                            $usertype = session('usertype');
+                        @endphp
 
-                        <form action="{{ route('logout') }}" method="POST">
+                        @if ($usertype === 'admin')
+                            <a href="{{ url('/admin/dashboard') }}" class="btn btn-primary btn-sm px-3 fw-semibold">
+                                <i class="fa-solid fa-gauge"></i> Dashboard
+                            </a>
+                        @elseif($usertype === 'staff')
+                            <a href="{{ url('/staff/dashboard') }}" class="btn btn-primary btn-sm px-3 fw-semibold">
+                                <i class="fa-solid fa-gauge"></i> Dashboard
+                            </a>
+                        @elseif($usertype === 'user')
+                            <a href="{{ url('/user/dashboard') }}" class="btn btn-primary btn-sm px-3 fw-semibold">
+                                <i class="fa-solid fa-gauge"></i> Dashboard
+                            </a>
+                        @endif
+
+
+                        <form action="{{ url('logout/web') }}" method="POST">
                             @csrf
                             <button class="btn btn-danger btn-sm px-3 fw-semibold">
                                 <i class="fa-solid fa-power-off"></i> Logout
@@ -58,11 +82,11 @@
                         </form>
                     @else
                         <!-- If NOT logged in: Show Login Buttons -->
-                        <a href="{{ route('login.user') }}" class="btn btn-outline-primary btn-sm px-3 fw-semibold">
+                        <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm px-3 fw-semibold">
                             <i class="fa-solid fa-user me-1"></i> Login
                         </a>
                     @endif
-
+                    {{-- {{$usertype ?? ''}} --}}
                 </div>
 
             </div>
@@ -72,7 +96,20 @@
 
 
     <!-- PAGE CONTENT -->
-    <main class="py-4">
+    <main class="">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         @yield('content')
     </main>
 

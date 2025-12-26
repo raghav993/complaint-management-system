@@ -1,15 +1,12 @@
 @extends('layouts.admin')
-
 @section('content')
     <div class="page-content">
         <div class="page-container mt-4">
-
             {{-- PAGE TITLE --}}
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3 class="fw-bold text-uppercase">Complaint Management Dashboard</h3>
                 {{-- <span class="text-muted">Welcome, {{ auth()->user()->name }}</span> --}}
             </div>
-
             {{-- TOP STATS ROW --}}
             <div class="row g-4 mb-4">
                 {{-- Total Users --}}
@@ -24,7 +21,6 @@
                         </div>
                     </div>
                 </div>
-
                 {{-- Total Departments --}}
                 <div class="col-xl-3 col-md-6">
                     <div class="card shadow-sm border-0">
@@ -37,7 +33,6 @@
                         </div>
                     </div>
                 </div>
-
                 {{-- Total Complaints --}}
                 <div class="col-xl-3 col-md-6">
                     <div class="card shadow-sm border-0">
@@ -50,7 +45,6 @@
                         </div>
                     </div>
                 </div>
-
                 {{-- Total Resolved Complaints --}}
                 <div class="col-xl-3 col-md-6">
                     <div class="card shadow-sm border-0">
@@ -59,12 +53,11 @@
                                 <i class="ti ti-check p-3"></i>
                             </span>
                             <h5 class="text-muted">Resolved Complaints</h5>
-                            <h2 class="fw-bold">{{ $resolvedComplaints ?? 0 }}</h2>
+                            <h2 class="fw-bold">{{ $totalResolvedComplaints  }}</h2>
                         </div>
                     </div>
                 </div>
             </div>
-
             {{-- COMPLAINT STATUS STATS --}}
             <div class="row g-4 mb-4">
                 {{-- Pending Complaints --}}
@@ -79,7 +72,6 @@
                         </div>
                     </div>
                 </div>
-
                 {{-- In Progress Complaints --}}
                 <div class="col-xl-3 col-md-6">
                     <div class="card shadow-sm border-0 bg-info text-white">
@@ -92,7 +84,6 @@
                         </div>
                     </div>
                 </div>
-
                 {{-- Escalated Complaints --}}
                 <div class="col-xl-3 col-md-6">
                     <div class="card shadow-sm border-0 bg-danger text-white">
@@ -105,7 +96,6 @@
                         </div>
                     </div>
                 </div>
-
                 {{-- Closed Complaints --}}
                 <div class="col-xl-3 col-md-6">
                     <div class="card shadow-sm border-0 bg-success text-white">
@@ -119,7 +109,6 @@
                     </div>
                 </div>
             </div>
-
             {{-- QUICK ACTIONS --}}
             <div class="row g-4 mb-4">
                 <div class="col-xl-4 col-md-6">
@@ -132,7 +121,6 @@
                         </div>
                     </a>
                 </div>
-
                 <div class="col-xl-4 col-md-6">
                     <a href="{{ url('/admin/sections') }}" class="text-decoration-none">
                         <div class="card shadow-sm border-0">
@@ -143,7 +131,6 @@
                         </div>
                     </a>
                 </div>
-
                 <div class="col-xl-4 col-md-6">
                     <a href="{{ url('/admin/complaints') }}" class="text-decoration-none">
                         <div class="card shadow-sm border-0">
@@ -155,10 +142,8 @@
                     </a>
                 </div>
             </div>
-
             {{-- TODAY'S ACTIVITY --}}
             <div class="row g-4">
-
                 <div class="col-xl-6">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-header bg-primary text-white">
@@ -168,29 +153,25 @@
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>Complaints Registered</span>
-                                    <span class="fw-bold">{{ $todayRegistered ?? 0 }}</span>
+                                    <span class="fw-bold">{{ $totalTodayComplaints ?? 0 }}</span>
                                 </li>
-
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>Complaints Assigned</span>
-                                    <span class="fw-bold">{{ $todayAssigned ?? 0 }}</span>
+                                    <span class="fw-bold">{{ $inProgressComplaints ?? 0 }}</span>
                                 </li>
-
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>Complaints Resolved</span>
-                                    <span class="fw-bold">{{ $todayResolved ?? 0 }}</span>
+                                    <span class="fw-bold">{{ $todayTotalResolved ?? 0 }}</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-xl-6">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-header bg-dark text-white">
                             <h5 class="mb-0">Live Department Status</h5>
                         </div>
-
                         <div class="card-body">
                             <table class="table table-striped table-bordered align-middle">
                                 <thead class="table-dark">
@@ -200,7 +181,6 @@
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     @foreach ($departmentStatus ?? [] as $d)
                                         <tr>
@@ -214,15 +194,11 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-
                             </table>
                         </div>
-
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 @endsection

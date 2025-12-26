@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('clients.create');
+        return view('users.create');
     }
 
     public function store(Request $request)
@@ -46,6 +46,8 @@ class UserController extends Controller
 
     public function showProfile (User $user)
     {
+        $user = auth()->user();
+        // dd($user);
         return view('users.profile', compact('user'));
     }
 
@@ -87,6 +89,7 @@ class UserController extends Controller
     public function profile()
     {
         $user = auth()->user();
+        dd($user);
         return view('clients.profile', compact('user'));
     }
 }

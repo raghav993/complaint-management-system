@@ -64,13 +64,13 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-sm btn-info">
+                                                {{-- <a href="#" class="btn btn-sm btn-info">
                                                     <i class="ti ti-eye"></i>
                                                 </a>
 
                                                 <a href="#" class="btn btn-sm btn-warning">
                                                     <i class="ti ti-pencil"></i>
-                                                </a>
+                                                </a> --}}
                                                 <button class="btn btn-sm btn-success assign-btn"
                                                     data-complaint="{{ $complaint->complaint_no }}" data-bs-toggle="modal"
                                                     data-bs-target="#assignModal">
@@ -104,9 +104,9 @@
                     <div class="modal-body">
                         <!-- Type -->
                         <div class="mb-3">
-                            <label>Type</label>
+                            <label>Section</label>
                             <select class="form-select" id="section">
-                                <option value="">Select Type</option>
+                                <option value="">Select Section</option>
                                 <option value="hardware">Hardware</option>
                                 <option value="software">Software</option>
                             </select>
